@@ -1,6 +1,6 @@
 <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
   <div>
-    <h3 class="page-title">Dashboard</h3>
+    <h3 class="page-title">Gösterge Paneli</h3>
     <div class="section-subtitle">Stok ve satış performansının anlık özeti</div>
   </div>
   <span class="badge text-bg-light border text-secondary-emphasis px-3 py-2">

@@ -13,7 +13,7 @@ class DashboardController extends Controller
     {
         $service = new DashboardService(db());
         $this->render('dashboard/index', [
-            'title' => 'Dashboard',
+            'title' => 'Gösterge Paneli',
             'metrics' => $service->metrics(),
             'criticalProducts' => $service->criticalStocks(),
         ]);

@@ -1,7 +1,7 @@
 # Stok Takip Mini ERP
 
 PHP 8.2 ve MySQL 8 ile geliştirilmiş, portfolyo odaklı bir mini ERP uygulaması.
-Odak noktası: kimlik doğrulama, RBAC, CRUD, stok hareketleri, satış işlemleri, raporlama ve temel audit log.
+Odak noktası: kimlik doğrulama, RBAC, CRUD, stok hareketleri, satış yönetimi, raporlama ve denetim kaydı.
 
 ## Özellikler
 
@@ -37,10 +37,10 @@ Odak noktası: kimlik doğrulama, RBAC, CRUD, stok hareketleri, satış işlemle
 - Basit müşteri adı (MVP)
 - Çok satırlı satış oluşturma (ürün, miktar, birim fiyat)
 - Satış kaydında otomatik `OUT` stok hareketi oluşturma
-- Transaction içinde kayıt + stok kontrolü
+- İşlem (transaction) içinde kayıt + stok kontrolü
 - Satış listesi ve satış detay ekranı
 
-### 5) Dashboard
+### 5) Gösterge Paneli
 - Toplam ürün sayısı
 - Kritik stoktaki ürün sayısı
 - Bugünkü satış adedi
@@ -52,7 +52,7 @@ Odak noktası: kimlik doğrulama, RBAC, CRUD, stok hareketleri, satış işlemle
 - Günlük ciro tablosu
 - En çok satılan 10 ürün (adet)
 
-### 7) Audit Log
+### 7) Denetim Kaydı
 - Önemli aksiyonlar kayıt altına alınır:
   - Başarılı/başarısız giriş
   - Ürün oluşturma/güncelleme
@@ -95,7 +95,6 @@ Odak noktası: kimlik doğrulama, RBAC, CRUD, stok hareketleri, satış işlemle
 - Docker Compose
 
 ### Hızlı Başlangıç
-
 1. Proje dizinine geçin.
 2. Ortam dosyasını oluşturun:
    ```bash
@@ -105,11 +104,11 @@ Odak noktası: kimlik doğrulama, RBAC, CRUD, stok hareketleri, satış işlemle
    ```bash
    docker compose up -d --build
    ```
-4. Migration çalıştırın:
+4. Şema geçişini çalıştırın:
    ```bash
    docker compose exec app php migrations/run.php
    ```
-5. Seed verisini yükleyin:
+5. Başlangıç verisini yükleyin:
    ```bash
    docker compose exec app php migrations/seed.php
    ```
@@ -125,12 +124,12 @@ Odak noktası: kimlik doğrulama, RBAC, CRUD, stok hareketleri, satış işlemle
 
 > Not: Admin panelindeki şifre sıfırlama işlemi `.env` içindeki `DEFAULT_RESET_PASSWORD` değerini kullanır.
 
-## Migration ve Seed
-- Schema migration:
+## Veritabanı Komutları
+- Şema geçişi:
   ```bash
   docker compose exec app php migrations/run.php
   ```
-- Demo seed:
+- Demo başlangıç verisi:
   ```bash
   docker compose exec app php migrations/seed.php
   ```
@@ -141,7 +140,7 @@ Odak noktası: kimlik doğrulama, RBAC, CRUD, stok hareketleri, satış işlemle
 - Route korumaları `require_auth()` ve `require_admin()` ile yapılır.
 - Kullanıcı yönetimi yalnızca `Admin` rolüne açıktır.
 
-### Transaction
+### İşlem Yönetimi
 - Satış oluşturma `SaleService::createSale()` içinde transaction ile yönetilir.
 - Aynı transaction içinde:
   - satış kaydı
@@ -153,7 +152,7 @@ Odak noktası: kimlik doğrulama, RBAC, CRUD, stok hareketleri, satış işlemle
 - Müşteri ayrı tablo yerine `customer_name` alanında tutulur.
 - Stok cache kolonu yerine stok, hareketlerden hesaplanır.
 
-## Roadmap
+## Yol Haritası
 - Birim ve entegrasyon testleri
 - İade / satış iptal akışı
 - CSV/Excel dışa aktarma
